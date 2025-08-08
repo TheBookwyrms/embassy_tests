@@ -95,7 +95,7 @@ async fn main(_spawner: Spawner) {
     let mut led: Output<'_> = Output::new(p.PIN_25, Level::Low);
     led.set_low();
 
-    let a = "sent by pico!".as_bytes();
+    //let a = "sent by pico!".as_bytes();
 
     // Do stuff with the class!
     let echo_fut = async {
@@ -112,7 +112,7 @@ async fn main(_spawner: Spawner) {
                         //for u in a {
                         //    write_ep.write(&[*u]).await.ok();
                         //}
-                        write_ep.write(&a).await.ok();
+                        //write_ep.write(&a).await.ok();
                     }
                     Err(_) => break,
                 }
