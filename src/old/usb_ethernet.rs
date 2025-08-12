@@ -9,7 +9,7 @@ use defmt::*;
 
 use embassy_executor::Spawner;
 
-use embassy_time::Timer;
+//use embassy_time::Timer;
 
 use embassy_net::tcp::TcpSocket;
 use embassy_net::StackResources;

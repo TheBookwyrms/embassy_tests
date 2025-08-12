@@ -108,7 +108,9 @@ async fn main(_spawner: Spawner) {
                     Ok(n) => {led_blink(&mut led).await;
                         info!("Got bulk: {:a}", data[..n]);
                         // Echo back to the host:
-                        write_ep.write(&data[..n]).await.ok();
+                        send_data(n, &data, &mut write_ep).await;//, write_ep.write)
+                        //write_ep.write(&data[..n]).await.ok();
+                        //let a = write_ep.write(buf)
                         //for u in a {
                         //    write_ep.write(&[*u]).await.ok();
                         //}
@@ -124,6 +126,11 @@ async fn main(_spawner: Spawner) {
     // Run everything concurrently.
     // If we had made everything `'static` above instead, we could do this using separate tasks instead.
     join(usb_fut, echo_fut).await;
+}
+
+async fn send_data(n:usize, data:&[u8],
+    sender : &mut embassy_rp::usb::Endpoint<'_, USB, embassy_rp::usb::In>) {
+    sender.write(&data[..n]).await.ok();
 }
 
 async fn led_blink(led : &mut Output<'_>) {
